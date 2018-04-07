@@ -1,0 +1,25 @@
+version: "3.2"
+services:
+        jenkins:
+                image: jenkinsci/blueocean
+                ports:
+                        - "8080:8080/tcp"
+                        - "50000:50000/tcp"
+                volumes:
+                        - type: volume
+                          source: jenkins_home
+                          target: /var/jenkins_home
+                          volume:
+                            nocopy: true
+                environment:
+                        - JAVA_OPTS="-Dhudson.model.ParametersAction.keepUndefinedParameters=true"
+                networks:
+                  jenkins-net: {}
+
+networks:
+  jenkins-net:
+
+volumes:
+  jenkins_home:
+    external: true
+
